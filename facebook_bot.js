@@ -135,15 +135,25 @@ controller.hears(['hello', 'hi', 'yo'], 'message_received', function(bot, messag
 // }); 
 
 controller.hears(['food'], 'message_received', function(bot, message) {
-    bot.reply(message, 'looking for restaurants...give me a second'); 
-    yelp.search({ term: 'food', location: 'San Francisco' })
-    .then(function (data) {
 
-      bot.reply(message, 'Foods: ' + data.businesses[1].name + ' ' + data.businesses[1].url); 
-    })
-    .catch(function (err) {
-        bot.reply(message, err); 
-    });
+    bot.startConversation(message, function(err, convo) {
+        convo.ask('Where do you want me to find food?', function(response, convo) {
+            bot.reply(message, 'okay, looking for restaurants...give me a second'); 
+            yelp.search({ term: 'food', location: response.text })
+                .then(function (data) {
+
+                  bot.reply(message, 'Foods: ' + data.businesses[1].name + ' ' + data.businesses[1].url); 
+                })
+                .catch(function (err) {
+                    bot.reply(message, 'are you sure that is a real place?'); 
+                });
+            
+        }); 
+
+    }); 
+
+    
+
 });
 
 
