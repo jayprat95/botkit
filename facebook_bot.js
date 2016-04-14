@@ -147,7 +147,7 @@ controller.hears(['food'], 'message_received', function(bot, message) {
 
                 var randNum = randomIntInc(0, data.businesses.length)
 
-                  bot.reply(message, 'Here is a restaurant for you: ' + data.businesses[randNum].name + ' ' + data.businesses[randNum].url); 
+                  // bot.reply(message, 'Here is a restaurant for you: ' + data.businesses[randNum].name + ' ' + data.businesses[randNum].url); 
 
                   bot.reply(message, {
                       attachment: {
@@ -158,7 +158,7 @@ controller.hears(['food'], 'message_received', function(bot, message) {
                                   {
                                       'title': data.businesses[randNum].name,
                                       'image_url': data.businesses[randNum].image_url,
-                                      'subtitle': "Foo Bar",
+                                      'subtitle': data.businesses[randNum].location.address[0],
                                       'buttons': [
                                           {
                                               'type': 'web_url',
