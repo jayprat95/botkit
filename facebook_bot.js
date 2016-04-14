@@ -134,19 +134,9 @@ controller.hears(['hello', 'hi', 'yo'], 'message_received', function(bot, messag
 
 // }); 
 
-controller.hears(['food'], 'direct_message,direct_mention,mention', function(bot, message) {
-
-    controller.storage.users.get(message.user, function(err, user) {
-        yelp.search({ term: 'food', location: '24060' })
-        .then(function (data) {
-          bot.reply(message, 'Foods: ' + data); 
-        })
-        .catch(function (err) {
-            bot.reply(message, err); 
-        });
-    });
-
-}); 
+controller.hears(['food'], 'message_received', function(bot, message) {
+    bot.reply(message, 'I am hungry too');
+});
 
 
 controller.hears(['structured'], 'message_received', function(bot, message) {
