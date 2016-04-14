@@ -148,6 +148,7 @@ controller.hears(['food'], 'message_received', function(bot, message) {
             if(response.text === 'next') {
                 if (businesses == null || business == null){
                     bot.reply('sorry you have to Specify a location first, try the "food" command again')
+                    convo.stop(); 
                 }
                 else {
                     var randNum = randomIntInc(0, businesses.length)
@@ -172,7 +173,8 @@ controller.hears(['food'], 'message_received', function(bot, message) {
                                   ]
                             }
                         }
-                    });                    
+                    });    
+                    convo.next();                 
                 }
 
             }
