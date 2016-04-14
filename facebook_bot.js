@@ -142,32 +142,66 @@ controller.hears(['food'], 'message_received', function(bot, message) {
     bot.startConversation(message, function(err, convo) {
         convo.ask('Where do you want me to find food?', function(response, convo) {
             bot.reply(message, 'okay, looking for restaurants...give me a second'); 
-            bot.reply(message, response.text + ' ') 
-            yelp.search({ term: 'food', location: response.text})
-                .then(function (data) {
-                var randNum = randomIntInc(0, data.businesses.length)
-                bot.reply(message, {
-                      attachment: {
-                          'type': 'template',
-                          'payload': {
-                              'template_type': 'generic',
-                              'elements': [
-                                  {
-                                      'title': data.businesses[randNum].name,
-                                      'image_url': data.businesses[randNum].image_url,
-                                      'subtitle': data.businesses[randNum].location.address[0],
-                                      'buttons': [
-                                          {
-                                              'type': 'web_url',
-                                              'url': data.businesses[randNum].url,
-                                              'title': 'View restaurant'
-                                          }
-                                      ]
-                                  }
-                              ]
+            var businesses; 
+            var business; 
+            if(response.text === 'next') {
+
+                    var randNum = randomIntInc(0, data.businesses.length)
+                    businesses = data.businesses; 
+                    business = data.businesses[randNum]; 
+                    bot.reply(message, {
+                          attachment: {
+                              'type': 'template',
+                              'payload': {
+                                  'template_type': 'generic',
+                                  'elements': [
+                                      {
+                                          'title': data.businesses[randNum].name,
+                                          'image_url': data.businesses[randNum].image_url,
+                                          'subtitle': data.businesses[randNum].location.address[0],
+                                          'buttons': [
+                                              {
+                                                  'type': 'web_url',
+                                                  'url': data.businesses[randNum].url,
+                                                  'title': 'View restaurant'
+                                              }
+                                          ]
+                                      }
+                                  ]
+                            }
                         }
-                    }
-                });
+                    }); 
+            }
+            else {
+                yelp.search({ term: 'food', location: response.text})
+                    .then(function (data) {
+                    var randNum = randomIntInc(0, data.businesses.length)
+                    businesses = data.businesses; 
+                    business = data.businesses[randNum]; 
+                    bot.reply(message, {
+                          attachment: {
+                              'type': 'template',
+                              'payload': {
+                                  'template_type': 'generic',
+                                  'elements': [
+                                      {
+                                          'title': data.businesses[randNum].name,
+                                          'image_url': data.businesses[randNum].image_url,
+                                          'subtitle': data.businesses[randNum].location.address[0],
+                                          'buttons': [
+                                              {
+                                                  'type': 'web_url',
+                                                  'url': data.businesses[randNum].url,
+                                                  'title': 'View restaurant'
+                                              }
+                                          ]
+                                      }
+                                  ]
+                            }
+                        }
+                    });         
+            } 
+
                 // convo.next(); 
 
                 })
