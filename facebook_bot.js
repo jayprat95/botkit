@@ -82,6 +82,18 @@ if (!process.env.verify_token) {
 var Botkit = require('./lib/Botkit.js');
 var os = require('os');
 
+var Yelp = require('yelp');
+
+var yelp = new Yelp({
+  consumer_key: 'Su6Ds4VAUca5pPnbmkB43A',
+  consumer_secret: 'RS3GqlqIDDsaZrgVgejsDRqPxBw',
+  token: 'wbUe2EBhjC7vtUWUwKBz1N0UN9qXi6Xc',
+  token_secret: 'pdfSHlno-DIpZyLPprdVPlQfyDk',
+});
+
+
+
+
 var controller = Botkit.facebookbot({
     debug: true,
     access_token: process.env.page_token,
@@ -109,6 +121,18 @@ controller.hears(['hello', 'hi'], 'message_received', function(bot, message) {
         }
     });
 });
+
+
+controller.hears(['food at (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
+        yelp.search({ term: 'food', location: 'Montreal' })
+    .then(function (data) {
+      bot.reply(message, 'Foods: ' + data); 
+    })
+    .catch(function (err) {
+      console.error(err);
+    });
+
+}); 
 
 
 controller.hears(['structured'], 'message_received', function(bot, message) {
