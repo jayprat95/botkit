@@ -147,7 +147,8 @@ controller.hears(['food'], 'message_received', function(bot, message) {
 
                 var randNum = randomIntInc(0, data.businesses.length)
 
-                  bot.reply(message, 'Here is a restaurant for you: '); 
+                  bot.reply(message, 'Here is a restaurant for you: ' + data.businesses[randNum].name + ' ' + data.businesses[randNum].url); 
+
                   bot.reply(message, {
                       attachment: {
                           'type': 'template',
@@ -155,21 +156,21 @@ controller.hears(['food'], 'message_received', function(bot, message) {
                               'template_type': 'generic',
                               'elements': [
                                   {
-                                      'title': data.businesses[randNum].name ,
-                                      'image_url': data.businesses[randNum].image_url,
-                                      'subtitle': data.businesses[randNum].address,
+                                      'title': 'Classic White T-Shirt',
+                                      'image_url': 'http://petersapparel.parseapp.com/img/item100-thumb.png',
+                                      'subtitle': 'Soft white cotton t-shirt is back in style',
                                       'buttons': [
                                           {
                                               'type': 'web_url',
-                                              'url': 'data.businesses[randNum].url',
+                                              'url': 'https://petersapparel.parseapp.com/view_item?item_id=100',
                                               'title': 'View restaurant'
                                           }
                                       ]
                                   }
                               ]
-                          }
-                      }
-                  });
+                        }
+                    }
+                });
 
 
 
