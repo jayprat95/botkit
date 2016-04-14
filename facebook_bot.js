@@ -215,9 +215,10 @@ controller.hears(['food'], 'message_received', function(bot, message) {
                         bot.reply(message, 'are you sure that is a real place?'); 
                         // convo.next(); 
                 });
+                    convo.next();
             } 
         }); 
-        convo.next();
+        
     }); 
 
     
