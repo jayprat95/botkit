@@ -158,7 +158,7 @@ controller.hears(['food'], 'message_received', function(bot, message) {
                                   {
                                       'title': data.businesses[randNum].name,
                                       'image_url': data.businesses[randNum].image_url,
-                                      'subtitle': data.businesses[randNum].location.address,
+                                      'subtitle': "Foo Bar",
                                       'buttons': [
                                           {
                                               'type': 'web_url',
