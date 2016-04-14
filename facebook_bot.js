@@ -152,9 +152,10 @@ controller.hears(['food'], 'message_received', function(bot, message) {
                 .catch(function (err) {
                     bot.reply(message, 'are you sure that is a real place?'); 
                 });
+
+            convo.next();
             
         }); 
-
     }); 
 
     
