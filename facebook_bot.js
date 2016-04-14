@@ -151,11 +151,9 @@ controller.hears(['food'], 'message_received', function(bot, message) {
                 })
                 .catch(function (err) {
                     bot.reply(message, 'are you sure that is a real place?'); 
-                });
-
-            convo.next();
-            
+            });
         }); 
+        convo.next();
     }); 
 
     
@@ -190,28 +188,6 @@ controller.hears(['structured'], 'message_received', function(bot, message) {
                                 'type': 'postback',
                                 'title': 'Bookmark Item',
                                 'payload': 'White T-Shirt'
-                            }
-                        ]
-                    },
-                    {
-                        'title': 'Classic Grey T-Shirt',
-                        'image_url': 'http://petersapparel.parseapp.com/img/item101-thumb.png',
-                        'subtitle': 'Soft gray cotton t-shirt is back in style',
-                        'buttons': [
-                            {
-                                'type': 'web_url',
-                                'url': 'https://petersapparel.parseapp.com/view_item?item_id=101',
-                                'title': 'View Item'
-                            },
-                            {
-                                'type': 'web_url',
-                                'url': 'https://petersapparel.parseapp.com/buy_item?item_id=101',
-                                'title': 'Buy Item'
-                            },
-                            {
-                                'type': 'postback',
-                                'title': 'Bookmark Item',
-                                'payload': 'Grey T-Shirt'
                             }
                         ]
                     }
