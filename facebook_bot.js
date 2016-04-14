@@ -199,7 +199,8 @@ controller.hears(['food'], 'message_received', function(bot, message) {
                                   ]
                             }
                         }
-                    });         
+                    });
+                }); 
             } 
 
                 // convo.next(); 
