@@ -169,6 +169,9 @@ controller.hears(['food'], 'message_received', function(bot, message) {
                         }
                     });
             }
+            else if(response.text === 'stop') {
+                convo.stop();
+            }
             else {
                 yelp.search({ term: 'food', location: response.text})
                     .then(function (data) {
