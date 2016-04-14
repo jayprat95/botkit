@@ -142,6 +142,7 @@ controller.hears(['food'], 'message_received', function(bot, message) {
     bot.startConversation(message, function(err, convo) {
         convo.ask('Where do you want me to find food?', function(response, convo) {
             bot.reply(message, 'okay, looking for restaurants...give me a second'); 
+            bot.reply(message, response.text + ' ') 
             yelp.search({ term: 'food', location: response.text})
                 .then(function (data) {
                 var randNum = randomIntInc(0, data.businesses.length)
