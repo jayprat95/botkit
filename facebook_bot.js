@@ -144,7 +144,12 @@ controller.hears(['food'], 'message_received', function(bot, message) {
             bot.reply(message, 'okay, looking for restaurants...give me a second');
             var businesses; 
             var business; 
+
             if(response.text === 'next') {
+                if (businesses == null || business == null){
+                    bot.reply('sorry you have to Specify a location first, try the "food" command again')
+                }
+                else {
                     var randNum = randomIntInc(0, businesses.length)
                     bot.reply(message, {
                           attachment: {
@@ -167,7 +172,9 @@ controller.hears(['food'], 'message_received', function(bot, message) {
                                   ]
                             }
                         }
-                    });
+                    });                    
+                }
+
             }
             else if(response.text === 'stop') {
                 convo.stop();
