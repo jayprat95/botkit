@@ -145,6 +145,7 @@ controller.hears(['food'], 'message_received', function(bot, message) {
             yelp.search({ term: 'food', location: response.text})
                 .then(function (data) {
                 var randNum = randomIntInc(0, data.businesses.length)
+                bot.reply(message, {response.text}); 
                 bot.reply(message, {
                       attachment: {
                           'type': 'template',
@@ -167,12 +168,12 @@ controller.hears(['food'], 'message_received', function(bot, message) {
                         }
                     }
                 });
-                convo.next(); 
+                // convo.next(); 
 
                 })
                 .catch(function (err) {
                     bot.reply(message, 'are you sure that is a real place?'); 
-                    convo.next(); 
+                    // convo.next(); 
             });
         }); 
         convo.next();
