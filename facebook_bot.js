@@ -147,7 +147,7 @@ controller.hears(['food'], 'message_received', function(bot, message) {
 
                 var randNum = randomIntInc(0, data.businesses.length)
 
-                  bot.reply(message, 'Foods: ' + data.businesses[randNum].name + ' ' + data.businesses[randNum].url); 
+                  bot.reply(message, 'Here is a restaurant for you: ' + data.businesses[randNum].name + ' ' + data.businesses[randNum].url); 
                 })
                 .catch(function (err) {
                     bot.reply(message, 'are you sure that is a real place?'); 
