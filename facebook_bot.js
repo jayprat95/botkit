@@ -138,7 +138,7 @@ controller.hears(['food'], 'message_received', function(bot, message) {
     yelp.search({ term: 'food', location: 'San Francisco' })
     .then(function (data) {
 
-      bot.reply(message, 'Foods: ' + data.businesses[0].name + ' ' + data.businesses[0].url); 
+      bot.reply(message, 'Foods: ' + data.businesses[1].name + ' ' + data.businesses[1].url); 
     })
     .catch(function (err) {
         bot.reply(message, err); 
