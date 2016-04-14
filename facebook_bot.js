@@ -109,6 +109,9 @@ controller.setupWebserver(process.env.port || process.env.PORT || 3000, function
     });
 });
 
+function randomIntInc (low, high) {
+    return Math.floor(Math.random() * (high - low + 1) + low);
+}
 
 controller.hears(['hello', 'hi', 'yo'], 'message_received', function(bot, message) {
 
@@ -142,7 +145,9 @@ controller.hears(['food'], 'message_received', function(bot, message) {
             yelp.search({ term: 'food', location: response.text })
                 .then(function (data) {
 
-                  bot.reply(message, 'Foods: ' + data.businesses[1].name + ' ' + data.businesses[1].url); 
+                var randNum = randomIntInc(0, data.businesses.length)
+
+                  bot.reply(message, 'Foods: ' + data.businesses[randNum].name + ' ' + data.businesses[randNum].url); 
                 })
                 .catch(function (err) {
                     bot.reply(message, 'are you sure that is a real place?'); 
@@ -303,32 +308,32 @@ controller.hears(['what is my name', 'who am i'], 'message_received', function(b
     });
 });
 
-controller.hears(['shutdown'], 'message_received', function(bot, message) {
+// controller.hears(['shutdown'], 'message_received', function(bot, message) {
 
-    bot.startConversation(message, function(err, convo) {
+//     bot.startConversation(message, function(err, convo) {
 
-        convo.ask('Are you sure you want me to shutdown?', [
-            {
-                pattern: bot.utterances.yes,
-                callback: function(response, convo) {
-                    convo.say('Bye!');
-                    convo.next();
-                    setTimeout(function() {
-                        process.exit();
-                    }, 3000);
-                }
-            },
-        {
-            pattern: bot.utterances.no,
-            default: true,
-            callback: function(response, convo) {
-                convo.say('*Phew!*');
-                convo.next();
-            }
-        }
-        ]);
-    });
-});
+//         convo.ask('Are you sure you want me to shutdown?', [
+//             {
+//                 pattern: bot.utterances.yes,
+//                 callback: function(response, convo) {
+//                     convo.say('Bye!');
+//                     convo.next();
+//                     setTimeout(function() {
+//                         process.exit();
+//                     }, 3000);
+//                 }
+//             },
+//         {
+//             pattern: bot.utterances.no,
+//             default: true,
+//             callback: function(response, convo) {
+//                 convo.say('*Phew!*');
+//                 convo.next();
+//             }
+//         }
+//         ]);
+//     });
+// });
 
 
 controller.hears(['uptime', 'identify yourself', 'who are you', 'what is your name'], 'message_received',
@@ -345,7 +350,7 @@ controller.hears(['uptime', 'identify yourself', 'who are you', 'what is your na
 
 
 controller.on('message_received', function(bot, message) {
-    bot.reply(message, 'Try: `what is my name` or `structured` or `call me captain`');
+    bot.reply(message, 'Try: `food` or `structured` or `call me captain`');
     return false;
 });
 
