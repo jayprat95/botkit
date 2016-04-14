@@ -145,7 +145,6 @@ controller.hears(['food'], 'message_received', function(bot, message) {
             yelp.search({ term: 'food', location: response.text})
                 .then(function (data) {
                 var randNum = randomIntInc(0, data.businesses.length)
-                bot.reply(message, response.text); 
                 bot.reply(message, {
                       attachment: {
                           'type': 'template',
