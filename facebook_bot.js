@@ -156,13 +156,13 @@ controller.hears(['food'], 'message_received', function(bot, message) {
                               'template_type': 'generic',
                               'elements': [
                                   {
-                                      'title': 'Classic White T-Shirt',
-                                      'image_url': 'http://petersapparel.parseapp.com/img/item100-thumb.png',
-                                      'subtitle': 'Soft white cotton t-shirt is back in style',
+                                      'title': data.businesses[randNum].name,
+                                      'image_url': data.businesses[randNum].image_url,
+                                      'subtitle': data.businesses[randNum].location.address,
                                       'buttons': [
                                           {
                                               'type': 'web_url',
-                                              'url': 'https://petersapparel.parseapp.com/view_item?item_id=100',
+                                              'url': data.businesses[randNum].url,
                                               'title': 'View restaurant'
                                           }
                                       ]
