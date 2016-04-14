@@ -147,7 +147,33 @@ controller.hears(['food'], 'message_received', function(bot, message) {
 
                 var randNum = randomIntInc(0, data.businesses.length)
 
-                  bot.reply(message, 'Here is a restaurant for you: ' + data.businesses[randNum].name + ' ' + data.businesses[randNum].url); 
+                  bot.reply(message, 'Here is a restaurant for you: '); 
+                  bot.reply(message, {
+                      attachment: {
+                          'type': 'template',
+                          'payload': {
+                              'template_type': 'generic',
+                              'elements': [
+                                  {
+                                      'title': data.businesses[randNum].name ,
+                                      'image_url': data.businesses[randNum].image_url,
+                                      'subtitle': data.businesses[randNum].address,
+                                      'buttons': [
+                                          {
+                                              'type': 'web_url',
+                                              'url': 'data.businesses[randNum].url',
+                                              'title': 'View restaurant'
+                                          }
+                                      ]
+                                  }
+                              ]
+                          }
+                      }
+                  });
+
+
+
+
                 })
                 .catch(function (err) {
                     bot.reply(message, 'are you sure that is a real place?'); 
@@ -177,17 +203,7 @@ controller.hears(['structured'], 'message_received', function(bot, message) {
                             {
                                 'type': 'web_url',
                                 'url': 'https://petersapparel.parseapp.com/view_item?item_id=100',
-                                'title': 'View Item'
-                            },
-                            {
-                                'type': 'web_url',
-                                'url': 'https://petersapparel.parseapp.com/buy_item?item_id=100',
-                                'title': 'Buy Item'
-                            },
-                            {
-                                'type': 'postback',
-                                'title': 'Bookmark Item',
-                                'payload': 'White T-Shirt'
+                                'title': 'View restaurant'
                             }
                         ]
                     }
