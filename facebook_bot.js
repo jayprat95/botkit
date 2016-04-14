@@ -110,7 +110,7 @@ controller.setupWebserver(process.env.port || process.env.PORT || 3000, function
 });
 
 
-controller.hears(['hello', 'hi'], 'message_received', function(bot, message) {
+controller.hears(['hello', 'hi', 'yo'], 'message_received', function(bot, message) {
 
 
     controller.storage.users.get(message.user, function(err, user) {
