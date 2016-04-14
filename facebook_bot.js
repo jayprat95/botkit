@@ -124,12 +124,12 @@ controller.hears(['hello', 'hi', 'yo'], 'message_received', function(bot, messag
 
 
 controller.hears(['food at (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
-        yelp.search({ term: 'food', location: 'Montreal' })
+    yelp.search({ term: 'food', location: '24060' })
     .then(function (data) {
       bot.reply(message, 'Foods: ' + data); 
     })
     .catch(function (err) {
-      console.error(err);
+        bot.reply(message, err); 
     });
 
 }); 
