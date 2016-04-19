@@ -230,7 +230,7 @@ controller.hears(['food'], 'message_received', function(bot, message) {
 
 askFlavor = function(response, convo) {
   convo.ask("What are you in the mood for?", function(response, convo) {
-    convo.say("Awesome.");
+    convo.say("Awesome. I like " + response.text + " too!");
     askSize(response, convo);
     convo.next();
   });
