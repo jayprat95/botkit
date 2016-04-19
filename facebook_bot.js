@@ -242,7 +242,7 @@ askSize = function(response, convo, genre) {
         .then(function (data) {
               var randNum = randomIntInc(0, data.businesses.length)
               businesses = data.businesses
-              bot.reply(message, {
+              convo.say(message, {
                     attachment: {
                         'type': 'template',
                         'payload': {
@@ -268,8 +268,8 @@ askSize = function(response, convo, genre) {
         .catch(function (err) {
             bot.reply(message, 'are you sure that is a real place?'); 
     });
-    askWhereDeliver(response, convo);
-    convo.next();
+    // askWhereDeliver(response, convo);
+    // convo.next();
   });
 }
 askWhereDeliver = function(response, convo) { 
