@@ -258,11 +258,12 @@ controller.on('facebook_postback', function(bot, message) {
 
 });
 
-controller.hears(['(.*) at (.*)', 'find (.*) at (.*)'], 'message_received', function(bot, message) {
+controller.hears(['find (.*) at (.*)'], 'message_received', function(bot, message) {
   var genre = message.match[1];
   var location = message.match[2];
   bot.reply(message, 'genre: ' + genre + ' location: ' + location);
 }); 
+
 controller.hears(['call me (.*)', 'my name is (.*)'], 'message_received', function(bot, message) {
     var name = message.match[1];
     controller.storage.users.get(message.user, function(err, user) {
@@ -345,32 +346,7 @@ controller.hears(['what is my name', 'who am i'], 'message_received', function(b
     });
 });
 
-// controller.hears(['shutdown'], 'message_received', function(bot, message) {
 
-//     bot.startConversation(message, function(err, convo) {
-
-//         convo.ask('Are you sure you want me to shutdown?', [
-//             {
-//                 pattern: bot.utterances.yes,
-//                 callback: function(response, convo) {
-//                     convo.say('Bye!');
-//                     convo.next();
-//                     setTimeout(function() {
-//                         process.exit();
-//                     }, 3000);
-//                 }
-//             },
-//         {
-//             pattern: bot.utterances.no,
-//             default: true,
-//             callback: function(response, convo) {
-//                 convo.say('*Phew!*');
-//                 convo.next();
-//             }
-//         }
-//         ]);
-//     });
-// });
 
 
 controller.hears(['uptime', 'identify yourself', 'who are you', 'what is your name'], 'message_received',
@@ -387,7 +363,7 @@ controller.hears(['uptime', 'identify yourself', 'who are you', 'what is your na
 
 
 controller.on('message_received', function(bot, message) {
-    bot.reply(message, 'Try: `food` or `structured` or `call me captain`');
+    bot.reply(message, 'Try: `food` ');
     return false;
 });
 
