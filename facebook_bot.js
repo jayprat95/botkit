@@ -223,7 +223,7 @@ controller.hears(['hello', 'hi', 'yo'], 'message_received', function(bot, messag
 // });
 
 
-controller.hears(['food'],["I'm hungry"],function(bot,message) {
+controller.hears(['food'],["I'm hungry"],'message_received', function(bot,message) {
   bot.startConversation(message, askFlavor);
 });
 
@@ -265,7 +265,7 @@ controller.hears(['uptime', 'identify yourself', 'who are you', 'what is your na
 
 
 controller.on('message_received', function(bot, message) {
-    bot.reply(message, 'Try: `food` ');
+    bot.reply(message, 'Try: `food`');
     return false;
 });
 
