@@ -242,7 +242,7 @@ askSize = function(response, convo, genre) {
         .then(function (data) {
               var randNum = randomIntInc(0, data.businesses.length)
               businesses = data.businesses
-              convo.say(message, {
+              bot.reply(message, {
                     attachment: {
                         'type': 'template',
                         'payload': {
