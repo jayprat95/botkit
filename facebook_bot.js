@@ -159,10 +159,22 @@ askSize = function(response, convo, genre) {
 }
 
 askWhereDeliver = function(response, convo) { 
-  convo.ask("So where do you want it delivered?", function(response, convo) {
-    convo.say("Ok! Good by.");
-    convo.stop();
-  });
+        convo.ask('Did you like this place?', [
+            {
+                pattern: bot.utterances.yes,
+                callback: function(response, convo) {
+                    convo.say('Okay cool');
+                    convo.stop();
+                }
+            },
+            {
+                pattern: bot.utterances.no,
+                callback: function(response, convo) {
+                    convo.say('Oh bummer :(');
+                    convo.next();
+                }
+            }
+      ]);
 }
 
 
