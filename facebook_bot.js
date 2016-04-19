@@ -230,14 +230,13 @@ controller.hears(['food'], 'message_received', function(bot, message) {
 
 askFlavor = function(response, convo) {
   convo.ask("What are you in the mood for?", function(response, convo) {
-    var genre = response.text
-    convo.say("Okay Cool! I love " + genre " too.");
-    askSize(response, convo, genre); 
+    convo.say("Awesome.");
+    askSize(response, convo);
     convo.next();
   });
 }
-askSize = function(response, convo, genre) {
-  convo.ask("Where do you want to find food?", function(response, convo) {
+askSize = function(response, convo) {
+  convo.ask("What size do you want?", function(response, convo) {
     convo.say("Ok.")
     askWhereDeliver(response, convo);
     convo.next();
@@ -246,10 +245,9 @@ askSize = function(response, convo, genre) {
 askWhereDeliver = function(response, convo) { 
   convo.ask("So where do you want it delivered?", function(response, convo) {
     convo.say("Ok! Good by.");
-    convo.next();
+    convo.stop();
   });
 }
-
 
 
 
