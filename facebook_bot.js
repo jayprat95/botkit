@@ -148,12 +148,13 @@ askSize = function(response, convo, genre) {
               var randNum = randomIntInc(0, data.businesses.length)
               businesses = data.businesses
               convo.say("Here is a place you might like: " + data.businesses[randNum].name + ",data.businesses[randNum].url"); 
+              askWhereDeliver(response, convo);
+              convo.next();
         })
         .catch(function (err) {
-            bot.reply(message, 'are you sure that is a real place?'); 
+            convo.say('are you sure that is a real place?'); 
     });
-    askWhereDeliver(response, convo);
-    convo.next();
+
   });
 }
 
