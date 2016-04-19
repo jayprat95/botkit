@@ -242,34 +242,13 @@ askSize = function(response, convo, genre) {
         .then(function (data) {
               var randNum = randomIntInc(0, data.businesses.length)
               businesses = data.businesses
-              bot.reply(message, {
-                    attachment: {
-                        'type': 'template',
-                        'payload': {
-                            'template_type': 'generic',
-                            'elements': [
-                                {
-                                    'title': data.businesses[randNum].name,
-                                    'image_url': data.businesses[randNum].image_url,
-                                    'subtitle': data.businesses[randNum].location.address[0],
-                                    'buttons': [
-                                        {
-                                            'type': 'web_url',
-                                            'url': data.businesses[randNum].url,
-                                            'title': 'View restaurant'
-                                        }
-                                    ]
-                                }
-                            ]
-                      }
-                  }
-        });
+              convo.say("Here is a place you might like: " + data.businesses[randNum].name + ",data.businesses[randNum].url"); 
         })
         .catch(function (err) {
             bot.reply(message, 'are you sure that is a real place?'); 
     });
-    // askWhereDeliver(response, convo);
-    // convo.next();
+    askWhereDeliver(response, convo);
+    convo.next();
   });
 }
 askWhereDeliver = function(response, convo) { 
