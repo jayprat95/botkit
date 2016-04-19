@@ -137,214 +137,116 @@ controller.hears(['hello', 'hi', 'yo'], 'message_received', function(bot, messag
 
 // }); 
 
-controller.hears(['food'], 'message_received', function(bot, message) {
+// controller.hears(['food'], 'message_received', function(bot, message) {
 
-    bot.startConversation(message, function(err, convo) {
-        convo.ask('Where do you want me to find food?', function(response, convo) {
-            bot.reply(message, 'okay, looking for restaurants...give me a second');
-            var businesses; 
-            var business; 
+//     bot.startConversation(message, function(err, convo) {
+//         convo.ask('Where do you want me to find food?', function(response, convo) {
+//             bot.reply(message, 'okay, looking for restaurants...give me a second');
+//             var businesses; 
+//             var business; 
 
-            if(response.text === 'next') {
-                if (businesses == null || business == null){
-                    bot.reply('sorry you have to Specify a location first, try the "food" command again')
-                    convo.stop(); 
-                }
-                else {
-                    var randNum = randomIntInc(0, businesses.length)
-                    bot.reply(message, {
-                          attachment: {
-                              'type': 'template',
-                              'payload': {
-                                  'template_type': 'generic',
-                                  'elements': [
-                                      {
-                                          'title': businesses[randNum].name,
-                                          'image_url': businesses[randNum].image_url,
-                                          'subtitle': businesses[randNum].location.address[0],
-                                          'buttons': [
-                                              {
-                                                  'type': 'web_url',
-                                                  'url': businesses[randNum].url,
-                                                  'title': 'View restaurant'
-                                              }
-                                          ]
-                                      }
-                                  ]
-                            }
-                        }
-                    });    
-                    convo.next();                 
-                }
+//             if(response.text === 'next') {
+//                 if (businesses == null || business == null){
+//                     bot.reply('sorry you have to Specify a location first, try the "food" command again')
+//                     convo.stop(); 
+//                 }
+//                 else {
+//                     var randNum = randomIntInc(0, businesses.length)
+//                     bot.reply(message, {
+//                           attachment: {
+//                               'type': 'template',
+//                               'payload': {
+//                                   'template_type': 'generic',
+//                                   'elements': [
+//                                       {
+//                                           'title': businesses[randNum].name,
+//                                           'image_url': businesses[randNum].image_url,
+//                                           'subtitle': businesses[randNum].location.address[0],
+//                                           'buttons': [
+//                                               {
+//                                                   'type': 'web_url',
+//                                                   'url': businesses[randNum].url,
+//                                                   'title': 'View restaurant'
+//                                               }
+//                                           ]
+//                                       }
+//                                   ]
+//                             }
+//                         }
+//                     });    
+//                     convo.next();                 
+//                 }
 
-            }
-            else if(response.text === 'stop') {
-                convo.stop();
-            }
-            else {
-                yelp.search({ term: 'food', location: response.text})
-                    .then(function (data) {
-                    var randNum = randomIntInc(0, data.businesses.length)
-                    businesses = data.businesses
-                    bot.reply(message, {
-                          attachment: {
-                              'type': 'template',
-                              'payload': {
-                                  'template_type': 'generic',
-                                  'elements': [
-                                      {
-                                          'title': data.businesses[randNum].name,
-                                          'image_url': data.businesses[randNum].image_url,
-                                          'subtitle': data.businesses[randNum].location.address[0],
-                                          'buttons': [
-                                              {
-                                                  'type': 'web_url',
-                                                  'url': data.businesses[randNum].url,
-                                                  'title': 'View restaurant'
-                                              }
-                                          ]
-                                      }
-                                  ]
-                            }
-                        }
-                    });
-                    // convo.next(); 
+//             }
+//             else if(response.text === 'stop') {
+//                 convo.stop();
+//             }
+//             else {
+//                 yelp.search({ term: 'food', location: response.text})
+//                     .then(function (data) {
+//                     var randNum = randomIntInc(0, data.businesses.length)
+//                     businesses = data.businesses
+//                     bot.reply(message, {
+//                           attachment: {
+//                               'type': 'template',
+//                               'payload': {
+//                                   'template_type': 'generic',
+//                                   'elements': [
+//                                       {
+//                                           'title': data.businesses[randNum].name,
+//                                           'image_url': data.businesses[randNum].image_url,
+//                                           'subtitle': data.businesses[randNum].location.address[0],
+//                                           'buttons': [
+//                                               {
+//                                                   'type': 'web_url',
+//                                                   'url': data.businesses[randNum].url,
+//                                                   'title': 'View restaurant'
+//                                               }
+//                                           ]
+//                                       }
+//                                   ]
+//                             }
+//                         }
+//                     });
+//                     // convo.next(); 
 
-                    })
-                    .catch(function (err) {
-                        bot.reply(message, 'are you sure that is a real place?'); 
-                        // convo.next(); 
-                });
-                    convo.next();
-            } 
-        }); 
+//                     })
+//                     .catch(function (err) {
+//                         bot.reply(message, 'are you sure that is a real place?'); 
+//                         // convo.next(); 
+//                 });
+//                     convo.next();
+//             } 
+//         }); 
         
-    }); 
+//     }); 
+// });
 
-    
 
+controller.hears(['food'],["I'm hungry"],function(bot,message) {
+  bot.startConversation(message, askFlavor);
 });
 
-
-controller.hears(['structured'], 'message_received', function(bot, message) {
-
-    bot.reply(message, {
-        attachment: {
-            'type': 'template',
-            'payload': {
-                'template_type': 'generic',
-                'elements': [
-                    {
-                        'title': 'Classic White T-Shirt',
-                        'image_url': 'http://petersapparel.parseapp.com/img/item100-thumb.png',
-                        'subtitle': 'Soft white cotton t-shirt is back in style',
-                        'buttons': [
-                            {
-                                'type': 'web_url',
-                                'url': 'https://petersapparel.parseapp.com/view_item?item_id=100',
-                                'title': 'View restaurant'
-                            }
-                        ]
-                    }
-                ]
-            }
-        }
-    });
-});
-
-controller.on('facebook_postback', function(bot, message) {
-
-    bot.reply(message, 'Great Choice!!!! (' + message.payload + ')');
-
-});
-
-controller.hears(['find (.*) at (.*)'], 'message_received', function(bot, message) {
-  var genre = message.match[1];
-  var location = message.match[2];
-  bot.reply(message, 'genre: ' + genre + ' location: ' + location);
-}); 
-
-controller.hears(['call me (.*)', 'my name is (.*)'], 'message_received', function(bot, message) {
-    var name = message.match[1];
-    controller.storage.users.get(message.user, function(err, user) {
-        if (!user) {
-            user = {
-                id: message.user,
-            };
-        }
-        user.name = name;
-        controller.storage.users.save(user, function(err, id) {
-            bot.reply(message, 'Got it. I will call you ' + user.name + ' from now on.');
-        });
-    });
-});
-
-controller.hears(['what is my name', 'who am i'], 'message_received', function(bot, message) {
-    controller.storage.users.get(message.user, function(err, user) {
-        if (user && user.name) {
-            bot.reply(message, 'Your name is ' + user.name);
-        } else {
-            bot.startConversation(message, function(err, convo) {
-                if (!err) {
-                    convo.say('I do not know your name yet!');
-                    convo.ask('What should I call you?', function(response, convo) {
-                        convo.ask('You want me to call you `' + response.text + '`?', [
-                            {
-                                pattern: 'yes',
-                                callback: function(response, convo) {
-                                    // since no further messages are queued after this,
-                                    // the conversation will end naturally with status == 'completed'
-                                    convo.next();
-                                }
-                            },
-                            {
-                                pattern: 'no',
-                                callback: function(response, convo) {
-                                    // stop the conversation. this will cause it to end with status == 'stopped'
-                                    convo.stop();
-                                }
-                            },
-                            {
-                                default: true,
-                                callback: function(response, convo) {
-                                    convo.repeat();
-                                    convo.next();
-                                }
-                            }
-                        ]);
-
-                        convo.next();
-
-                    }, {'key': 'nickname'}); // store the results in a field called nickname
-
-                    convo.on('end', function(convo) {
-                        if (convo.status == 'completed') {
-                            bot.reply(message, 'OK! I will update my dossier...');
-
-                            controller.storage.users.get(message.user, function(err, user) {
-                                if (!user) {
-                                    user = {
-                                        id: message.user,
-                                    };
-                                }
-                                user.name = convo.extractResponse('nickname');
-                                controller.storage.users.save(user, function(err, id) {
-                                    bot.reply(message, 'Got it. I will call you ' + user.name + ' from now on.');
-                                });
-                            });
-
-
-
-                        } else {
-                            // this happens if the conversation ended prematurely for some reason
-                            bot.reply(message, 'OK, nevermind!');
-                        }
-                    });
-                }
-            });
-        }
-    });
-});
+askFlavor = function(response, convo) {
+  convo.ask("What flavor of pizza do you want?", function(response, convo) {
+    convo.say("Awesome.");
+    askSize(response, convo);
+    convo.next();
+  });
+}
+askSize = function(response, convo) {
+  convo.ask("What size do you want?", function(response, convo) {
+    convo.say("Ok.")
+    askWhereDeliver(response, convo);
+    convo.next();
+  });
+}
+askWhereDeliver = function(response, convo) { 
+  convo.ask("So where do you want it delivered?", function(response, convo) {
+    convo.say("Ok! Good by.");
+    convo.next();
+  });
+}
 
 
 
