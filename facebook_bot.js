@@ -126,102 +126,6 @@ controller.hears(['hello', 'hi', 'yo'], 'message_received', function(bot, messag
 });
 
 
-// controller.hears(['food at (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
-//     yelp.search({ term: 'food', location: '24060' })
-//     .then(function (data) {
-//       bot.reply(message, 'Foods: ' + data); 
-//     })
-//     .catch(function (err) {
-//         bot.reply(message, err); 
-//     });
-
-// }); 
-
-// controller.hears(['food'], 'message_received', function(bot, message) {
-
-//     bot.startConversation(message, function(err, convo) {
-//         convo.ask('Where do you want me to find food?', function(response, convo) {
-//             bot.reply(message, 'okay, looking for restaurants...give me a second');
-//             var businesses; 
-//             var business; 
-
-//             if(response.text === 'next') {
-//                 if (businesses == null || business == null){
-//                     bot.reply('sorry you have to Specify a location first, try the "food" command again')
-//                     convo.stop(); 
-//                 }
-//                 else {
-//                     var randNum = randomIntInc(0, businesses.length)
-//                     bot.reply(message, {
-//                           attachment: {
-//                               'type': 'template',
-//                               'payload': {
-//                                   'template_type': 'generic',
-//                                   'elements': [
-//                                       {
-//                                           'title': businesses[randNum].name,
-//                                           'image_url': businesses[randNum].image_url,
-//                                           'subtitle': businesses[randNum].location.address[0],
-//                                           'buttons': [
-//                                               {
-//                                                   'type': 'web_url',
-//                                                   'url': businesses[randNum].url,
-//                                                   'title': 'View restaurant'
-//                                               }
-//                                           ]
-//                                       }
-//                                   ]
-//                             }
-//                         }
-//                     });    
-//                     convo.next();                 
-//                 }
-
-//             }
-//             else if(response.text === 'stop') {
-//                 convo.stop();
-//             }
-//             else {
-                // yelp.search({ term: 'food', location: response.text})
-                //     .then(function (data) {
-                //     var randNum = randomIntInc(0, data.businesses.length)
-                //     businesses = data.businesses
-                //     bot.reply(message, {
-                //           attachment: {
-                //               'type': 'template',
-                //               'payload': {
-                //                   'template_type': 'generic',
-                //                   'elements': [
-                //                       {
-                //                           'title': data.businesses[randNum].name,
-                //                           'image_url': data.businesses[randNum].image_url,
-                //                           'subtitle': data.businesses[randNum].location.address[0],
-                //                           'buttons': [
-                //                               {
-                //                                   'type': 'web_url',
-                //                                   'url': data.businesses[randNum].url,
-                //                                   'title': 'View restaurant'
-                //                               }
-                //                           ]
-                //                       }
-                //                   ]
-                //             }
-                //         }
-                //     });
-                //     // convo.next(); 
-
-                //     })
-                //     .catch(function (err) {
-                //         bot.reply(message, 'are you sure that is a real place?'); 
-                //         // convo.next(); 
-                // });
-//                     convo.next();
-//             } 
-//         }); 
-        
-//     }); 
-// });
-
 
 controller.hears(['food'], 'message_received', function(bot, message) {
   bot.startConversation(message, askFlavor);
@@ -235,6 +139,7 @@ askFlavor = function(response, convo) {
     convo.next();
   });
 }
+
 askSize = function(response, convo, genre) {
   convo.ask("Where do you want me to search for food?", function(response, convo) {
     convo.say("Ok. I'll try to find" + " " + genre + " at " + response.text); 
@@ -251,6 +156,7 @@ askSize = function(response, convo, genre) {
     convo.next();
   });
 }
+
 askWhereDeliver = function(response, convo) { 
   convo.ask("So where do you want it delivered?", function(response, convo) {
     convo.say("Ok! Good by.");
