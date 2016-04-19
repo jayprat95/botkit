@@ -240,29 +240,29 @@ askSize = function(response, convo, genre) {
     convo.say("Ok. I'll try to find" + " " + genre + " at " + response.text); 
     yelp.search({ term: 'food', location: response.text})
         .then(function (data) {
-        var randNum = randomIntInc(0, data.businesses.length)
-        businesses = data.businesses
-        bot.reply(message, {
-              attachment: {
-                  'type': 'template',
-                  'payload': {
-                      'template_type': 'generic',
-                      'elements': [
-                          {
-                              'title': data.businesses[randNum].name,
-                              'image_url': data.businesses[randNum].image_url,
-                              'subtitle': data.businesses[randNum].location.address[0],
-                              'buttons': [
-                                  {
-                                      'type': 'web_url',
-                                      'url': data.businesses[randNum].url,
-                                      'title': 'View restaurant'
-                                  }
-                              ]
-                          }
-                      ]
-                }
-            }
+              var randNum = randomIntInc(0, data.businesses.length)
+              businesses = data.businesses
+              bot.reply(message, {
+                    attachment: {
+                        'type': 'template',
+                        'payload': {
+                            'template_type': 'generic',
+                            'elements': [
+                                {
+                                    'title': data.businesses[randNum].name,
+                                    'image_url': data.businesses[randNum].image_url,
+                                    'subtitle': data.businesses[randNum].location.address[0],
+                                    'buttons': [
+                                        {
+                                            'type': 'web_url',
+                                            'url': data.businesses[randNum].url,
+                                            'title': 'View restaurant'
+                                        }
+                                    ]
+                                }
+                            ]
+                      }
+                  }
         });
         })
         .catch(function (err) {
