@@ -258,6 +258,11 @@ controller.on('facebook_postback', function(bot, message) {
 
 });
 
+controller.hears(['(.*) at (.*)', 'find (.*) at (.*)'], 'message_received', function(bot, message) {
+  var genre = message.match[1];
+  var location = message.match[2];
+  bot.reply(message, 'genre: ' + genre + ' location: ' + location);
+}); 
 controller.hears(['call me (.*)', 'my name is (.*)'], 'message_received', function(bot, message) {
     var name = message.match[1];
     controller.storage.users.get(message.user, function(err, user) {
