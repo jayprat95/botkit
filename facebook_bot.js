@@ -223,7 +223,7 @@ controller.hears(['hello', 'hi', 'yo'], 'message_received', function(bot, messag
 // });
 
 
-controller.hears(['food'],["I'm hungry"],'message_received', function(bot,message) {
+controller.hears(['food'], 'message_received', function(bot, message) {
   bot.startConversation(message, askFlavor);
 });
 
