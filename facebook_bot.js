@@ -147,7 +147,7 @@ askSize = function(response, convo, genre) {
         .then(function (data) {
               var randNum = randomIntInc(0, data.businesses.length)
               businesses = data.businesses
-              convo.say("Here is a place you might like: " + data.businesses[randNum].name + ",data.businesses[randNum].url"); 
+              convo.say("Here is a place you might like: " + data.businesses[randNum].name + "," + data.businesses[randNum].url); 
               askWhereDeliver(response, convo);
               convo.next();
         })
