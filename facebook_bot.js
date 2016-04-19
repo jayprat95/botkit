@@ -182,39 +182,39 @@ controller.hears(['hello', 'hi', 'yo'], 'message_received', function(bot, messag
 //                 convo.stop();
 //             }
 //             else {
-                yelp.search({ term: 'food', location: response.text})
-                    .then(function (data) {
-                    var randNum = randomIntInc(0, data.businesses.length)
-                    businesses = data.businesses
-                    bot.reply(message, {
-                          attachment: {
-                              'type': 'template',
-                              'payload': {
-                                  'template_type': 'generic',
-                                  'elements': [
-                                      {
-                                          'title': data.businesses[randNum].name,
-                                          'image_url': data.businesses[randNum].image_url,
-                                          'subtitle': data.businesses[randNum].location.address[0],
-                                          'buttons': [
-                                              {
-                                                  'type': 'web_url',
-                                                  'url': data.businesses[randNum].url,
-                                                  'title': 'View restaurant'
-                                              }
-                                          ]
-                                      }
-                                  ]
-                            }
-                        }
-                    });
-                    // convo.next(); 
+                // yelp.search({ term: 'food', location: response.text})
+                //     .then(function (data) {
+                //     var randNum = randomIntInc(0, data.businesses.length)
+                //     businesses = data.businesses
+                //     bot.reply(message, {
+                //           attachment: {
+                //               'type': 'template',
+                //               'payload': {
+                //                   'template_type': 'generic',
+                //                   'elements': [
+                //                       {
+                //                           'title': data.businesses[randNum].name,
+                //                           'image_url': data.businesses[randNum].image_url,
+                //                           'subtitle': data.businesses[randNum].location.address[0],
+                //                           'buttons': [
+                //                               {
+                //                                   'type': 'web_url',
+                //                                   'url': data.businesses[randNum].url,
+                //                                   'title': 'View restaurant'
+                //                               }
+                //                           ]
+                //                       }
+                //                   ]
+                //             }
+                //         }
+                //     });
+                //     // convo.next(); 
 
-                    })
-                    .catch(function (err) {
-                        bot.reply(message, 'are you sure that is a real place?'); 
-                        // convo.next(); 
-                });
+                //     })
+                //     .catch(function (err) {
+                //         bot.reply(message, 'are you sure that is a real place?'); 
+                //         // convo.next(); 
+                // });
 //                     convo.next();
 //             } 
 //         }); 
@@ -238,6 +238,36 @@ askFlavor = function(response, convo) {
 askSize = function(response, convo, genre) {
   convo.ask("Where do you want me to search for food?", function(response, convo) {
     convo.say("Ok. I'll try to find" + " " + genre + " at " + response.text); 
+    yelp.search({ term: genre, location: response.text})
+        .then(function (data) {
+              var randNum = randomIntInc(0, data.businesses.length)
+              businesses = data.businesses
+              bot.reply(message, {
+                    attachment: {
+                        'type': 'template',
+                        'payload': {
+                            'template_type': 'generic',
+                            'elements': [
+                                {
+                                    'title': data.businesses[randNum].name,
+                                    'image_url': data.businesses[randNum].image_url,
+                                    'subtitle': data.businesses[randNum].location.address[0],
+                                    'buttons': [
+                                        {
+                                            'type': 'web_url',
+                                            'url': data.businesses[randNum].url,
+                                            'title': 'View restaurant'
+                                        }
+                                    ]
+                                }
+                            ]
+                      }
+                  }
+        });
+        })
+        .catch(function (err) {
+            bot.reply(message, 'are you sure that is a real place?'); 
+    });
     askWhereDeliver(response, convo);
     convo.next();
   });

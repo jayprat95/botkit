@@ -71,7 +71,7 @@ controller.spawn({
   }
 });
 
-controller.hears(['food'],['ambient'],function(bot,message) {
+controller.hears(['pizzatime'],['ambient'],function(bot,message) {
   bot.startConversation(message, askFlavor);
 });
 
