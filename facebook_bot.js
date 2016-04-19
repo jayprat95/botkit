@@ -228,9 +228,10 @@ controller.hears(['food'], 'message_received', function(bot, message) {
 });
 
 askFlavor = function(response, convo) {
-  convo.ask("What flavor of pizza do you want?", function(response, convo) {
-    convo.say("Awesome.");
-    askSize(response, convo);
+  convo.ask("What are you in the mood for?", function(response, convo) {
+    var genre = response.text
+    convo.say("Okay Cool! I love " + genre " too.");
+    askSize(response, convo); 
     convo.next();
   });
 }
